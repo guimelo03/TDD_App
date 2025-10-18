@@ -24,5 +24,7 @@
 
   <body>
     <%= yield %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </body>
 </html>
