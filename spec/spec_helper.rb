@@ -13,6 +13,23 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+Capybara.register_driver :chrome do |app|
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument('--headless')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--remote-debugging-port=9222')
+    options.add_argument('--window-size=1400,1400')
+
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
+  end
+
+  Capybara.javascript_driver = :chrome
+  Capybara.server = :puma, { Silent: true }
+  Capybara.default_max_wait_time = 15
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
